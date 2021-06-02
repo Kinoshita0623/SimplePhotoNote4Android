@@ -25,6 +25,7 @@
             android:layout_marginBottom="16dp"
             android:text="@string/add_gallery"
             app:icon="@drawable/ic_baseline_add_24"
+            android:id="@+id/createFab"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
