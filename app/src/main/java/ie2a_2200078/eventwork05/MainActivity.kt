@@ -1,5 +1,6 @@
 package ie2a_2200078.eventwork05
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
@@ -34,5 +35,8 @@ class MainActivity : AppCompatActivity() {
             adapter.submitList(it)
         }.launchIn(lifecycleScope)
 
+        binding.createFab.setOnClickListener {
+            startActivity(Intent(this@MainActivity, GalleryNoteEditorActivity::class.java))
+        }
     }
 }
