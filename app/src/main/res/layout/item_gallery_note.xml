@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+
+        <variable
+            name="galleryNoteWithFile"
+            type="ie2a_2200078.eventwork05.entities.GalleryNoteWithFile" />
+
+        <import type="android.view.View" />
+        <variable
+            name="onFavoriteClickListener"
+            type="ie2a_2200078.eventwork05.view.OnFavoriteClickListener" />
+
+    </data>
+    <androidx.cardview.widget.CardView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="6dp"
+
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent" android:layout_height="match_parent"
+            android:paddingBottom="4dp"
+
+            >
+            <androidx.viewpager2.widget.ViewPager2
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintDimensionRatio="w,3:4"
+                android:id="@+id/galleryImagePager"
+
+                />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/imagesTab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/galleryImagePager"
+                app:layout_constraintStart_toStartOf="@id/galleryImagePager"
+                app:layout_constraintEnd_toEndOf="@id/galleryImagePager"
+                app:tabGravity="center"
+                app:tabIndicatorHeight="0dp"
+                app:tabBackground="@drawable/tab_dot_background"
+                app:tabPaddingStart="6dp"
+                app:tabPaddingEnd="6dp"
+                app:tabPaddingTop="6dp"
+                app:tabPaddingBottom="6dp"
+                android:visibility="@{ galleryNoteWithFile.files.size() == 1 ? View.GONE : View.VISIBLE }"
+                />
+
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="2dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+
+
+                app:layout_constraintEnd_toStartOf="@+id/favoriteButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imagesTab"
+                tools:text="Gallery Post Title"
+                android:text="@{galleryNoteWithFile.galleryNote.title}"
+                app:layout_constraintRight_toLeftOf="@id/favoriteButton"
+                />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="description"
+                android:id="@+id/description"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@{galleryNoteWithFile.galleryNote.description}"
+                android:visibility="@{galleryNoteWithFile.galleryNote.description == null ? View.GONE : View.VISIBLE}"
+                />
+
+
+
+
+
+            <ImageButton
+                android:id="@+id/favoriteButton"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+
+
+                app:layout_constraintEnd_toEndOf="parent"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                tools:src="@drawable/ic_baseline_favorite_border_24"
+                android:layout_marginEnd="8dp"
+                isLiked="@{galleryNoteWithFile.galleryNote.isFavorite == true}"
+                app:layout_constraintTop_toTopOf="@id/title"
+                app:layout_constraintBottom_toBottomOf="@id/title"
+                android:onClick="@{()->onFavoriteClickListener.onClick(galleryNoteWithFile)}"
+                tools:ignore="ContentDescription" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</layout>
