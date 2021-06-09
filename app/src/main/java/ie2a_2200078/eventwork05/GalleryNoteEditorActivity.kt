@@ -60,6 +60,11 @@ class GalleryNoteEditorActivity : AppCompatActivity() {
                 showFilePicker()
             }
         }
+        viewModel.isSuccess.observe(this) {
+            if(it) {
+                finish()
+            }
+        }
 
     }
 
@@ -82,8 +87,11 @@ class GalleryNoteEditorActivity : AppCompatActivity() {
     }
 
     private val pickFileResultListener = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        val path = it.data?.data?.toString()
+        val uri = it.data?.data
+        val path = uri?.toString()
         if(path != null) {
+            val flags =  Intent.FLAG_GRANT_READ_URI_PERMISSION
+            applicationContext.contentResolver.takePersistableUriPermission(uri, flags)
             viewModel.addFile(path)
         }
     }

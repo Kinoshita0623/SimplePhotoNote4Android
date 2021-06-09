@@ -51,7 +51,11 @@ class GalleryPostEditorViewModel(
 
         viewModelScope.launch(Dispatchers.IO) {
             runCatching {
-                galleryNoteDAO.insert(note)
+                val noteId = galleryNoteDAO.insert(note)
+                val files = pickedImages.value?: emptyList()
+                galleryFileDAO.insertAll(files.map {
+                    it.copy(galleryNoteId = noteId)
+                })
             }.onSuccess {
                 _isSuccess.postValue(true)
             }.onFailure {

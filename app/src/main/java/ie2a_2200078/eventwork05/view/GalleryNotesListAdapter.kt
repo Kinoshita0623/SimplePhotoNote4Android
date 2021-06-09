@@ -6,6 +6,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import ie2a_2200078.eventwork05.databinding.ItemGalleryNoteBinding
 import ie2a_2200078.eventwork05.entities.GalleryNoteWithFile
 
@@ -24,6 +25,11 @@ class GalleryNoteWithFileListAdapter(
             binding.lifecycleOwner = lifecycleOwner
 
             binding.onFavoriteClickListener = onFavoriteClickListener
+            binding.galleryImagePager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+
+            val adapter = PhotoListAdapter(lifecycleOwner)
+            binding.galleryImagePager.adapter = adapter
+            adapter.submitList(galleryNoteWithFile.files)
 
             binding.executePendingBindings()
         }

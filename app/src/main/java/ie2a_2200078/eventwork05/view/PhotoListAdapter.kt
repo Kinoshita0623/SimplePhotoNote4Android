@@ -14,7 +14,7 @@ class PhotoListAdapter(
         val lifecycleOwner: LifecycleOwner
 ) : ListAdapter<GalleryFile, PhotoListAdapter.VH>(Diff){
 
-    inner class VH(private val binding: ItemPhotoBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class VH(val binding: ItemPhotoBinding) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(photo: GalleryFile) {
             Glide.with(binding.imageView)
                     .load(photo.path)
@@ -33,7 +33,9 @@ class PhotoListAdapter(
                         parent,
                         false
                 )
-        )
+        ).also {
+            it.binding.lifecycleOwner = lifecycleOwner
+        }
     }
 
 

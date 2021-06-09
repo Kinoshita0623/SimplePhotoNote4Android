@@ -21,7 +21,7 @@ interface GalleryNoteDAO {
     fun findAll(): Flow<List<GalleryNote>>
 
     @Transaction
-    @Query("select * from gallery_notes")
+    @Query("select * from gallery_notes order by id desc")
     fun findAllWithFiles(): Flow<List<GalleryNoteWithFile>>
 
     @Query("select * from gallery_notes where id=:id")
