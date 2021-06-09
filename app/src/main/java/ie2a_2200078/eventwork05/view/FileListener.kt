@@ -1,4 +1,4 @@
-package ie2a_2200078.eventwork05.viewmodels
+package ie2a_2200078.eventwork05.view
 
 import ie2a_2200078.eventwork05.entities.GalleryFile
 
