@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayoutMediator
 import ie2a_2200078.eventwork05.databinding.ItemGalleryNoteBinding
 import ie2a_2200078.eventwork05.entities.GalleryNoteWithFile
 
@@ -30,6 +31,10 @@ class GalleryNoteWithFileListAdapter(
             val adapter = PhotoListAdapter(lifecycleOwner)
             binding.galleryImagePager.adapter = adapter
             adapter.submitList(galleryNoteWithFile.files)
+
+            TabLayoutMediator(binding.imagesTab, binding.galleryImagePager) { _, _ ->
+
+            }.attach()
 
             binding.executePendingBindings()
         }
