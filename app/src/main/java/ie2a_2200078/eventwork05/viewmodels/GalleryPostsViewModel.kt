@@ -19,8 +19,7 @@ class GalleryPostsViewModel(
 
     val galleryNotes = galleryNoteDAO.findAllWithFiles()
 
-    private val _currentPhotoIndexes = MutableLiveData<Map<Long, Int>>()
-    val currentPhotoIndexes: LiveData<Map<Long, Int>> = _currentPhotoIndexes
+    private var _currentPhotoIndexes: Map<Long, Int> = emptyMap()
 
 
     fun toggleFavorite(id: Long) {
@@ -34,12 +33,12 @@ class GalleryPostsViewModel(
     }
 
     fun setCurrentPhotoIndex(noteId: Long, currentPageIndex: Int) {
-        val map = (_currentPhotoIndexes.value ?: emptyMap()).toMutableMap()
+        val map = _currentPhotoIndexes.toMutableMap()
         map[noteId] = currentPageIndex
-        this._currentPhotoIndexes.value = map
+        this._currentPhotoIndexes = map
     }
 
     fun getCurrentPhotoIndex(noteId: Long): Int {
-        return (_currentPhotoIndexes.value?: emptyMap())[noteId] ?: 0
+        return _currentPhotoIndexes[noteId] ?: 0
     }
 }
