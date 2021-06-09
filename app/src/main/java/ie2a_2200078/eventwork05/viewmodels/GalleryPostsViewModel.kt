@@ -1,8 +1,6 @@
 package ie2a_2200078.eventwork05.viewmodels
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import ie2a_2200078.eventwork05.MyApp
 import ie2a_2200078.eventwork05.dao.GalleryNoteDAO
 import kotlinx.coroutines.Dispatchers
@@ -21,6 +19,9 @@ class GalleryPostsViewModel(
 
     val galleryNotes = galleryNoteDAO.findAllWithFiles()
 
+    private val _currentPhotoIndexes = MutableLiveData<Map<Long, Int>>()
+    val currentPhotoIndexes: LiveData<Map<Long, Int>> = _currentPhotoIndexes
+
 
     fun toggleFavorite(id: Long) {
 
@@ -30,5 +31,15 @@ class GalleryPostsViewModel(
                 galleryNoteDAO.update(note.copy(isFavorite = !note.isFavorite))
             }
         }
+    }
+
+    fun setCurrentPhotoIndex(noteId: Long, currentPageIndex: Int) {
+        val map = (_currentPhotoIndexes.value ?: emptyMap()).toMutableMap()
+        map[noteId] = currentPageIndex
+        this._currentPhotoIndexes.value = map
+    }
+
+    fun getCurrentPhotoIndex(noteId: Long): Int {
+        return (_currentPhotoIndexes.value?: emptyMap())[noteId] ?: 0
     }
 }
