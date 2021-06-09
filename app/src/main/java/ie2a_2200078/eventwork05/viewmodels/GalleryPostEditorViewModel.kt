@@ -65,4 +65,10 @@ class GalleryPostEditorViewModel(
 
     }
 
+    fun addFile(path: String) {
+        _pickedImages.value = (_pickedImages.value?: listOf()).toMutableList().also {
+            it.add(GalleryFile(path, 0))
+        }
+    }
+
 }

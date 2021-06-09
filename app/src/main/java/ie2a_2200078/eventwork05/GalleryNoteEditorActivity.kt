@@ -18,12 +18,13 @@ import ie2a_2200078.eventwork05.view.PickedImagesListAdapter
 import ie2a_2200078.eventwork05.viewmodels.GalleryPostEditorViewModel
 
 class GalleryNoteEditorActivity : AppCompatActivity() {
+    private lateinit var viewModel: GalleryPostEditorViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = DataBindingUtil.setContentView<ActivityGalleryNoteEditorBinding>(this, R.layout.activity_gallery_note_editor)
         binding.lifecycleOwner = this
 
-        val viewModel = ViewModelProvider(this, GalleryPostEditorViewModel.Factory(application as MyApp))[GalleryPostEditorViewModel::class.java]
+        viewModel = ViewModelProvider(this, GalleryPostEditorViewModel.Factory(application as MyApp))[GalleryPostEditorViewModel::class.java]
         binding.galleryPostEditorViewModel = viewModel
 
         binding.saveFab.setOnClickListener {
@@ -48,9 +49,12 @@ class GalleryNoteEditorActivity : AppCompatActivity() {
             binding.pickedImages.layoutManager = layoutManager
         }
         binding.pickedImages.adapter = adapter
+        viewModel.pickedImages.observe(this) {
+            adapter.submitList(it)
+        }
 
         binding.pickedImageButton.setOnClickListener {
-            if(checkPermission()) {
+            if(!checkPermission()) {
                 requestReadExternalStoragePermissionResultListener.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
             }else{
                 showFilePicker()
@@ -78,8 +82,9 @@ class GalleryNoteEditorActivity : AppCompatActivity() {
     }
 
     private val pickFileResultListener = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        if(it.data != null) {
-            val path = it.data?.data?.path
+        val path = it.data?.data?.toString()
+        if(path != null) {
+            viewModel.addFile(path)
         }
     }
 }
