@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
                 viewModel.toggleFavorite(it.galleryNote.id)
             },
             this,
+                viewModel,
         )
 
         binding.galleryPostsListView.adapter = adapter

@@ -1,5 +1,10 @@
 <resources>
-    <string name="app_name">EventWork05</string>
+    <string name="app_name">画像日記 木下雄一朗</string>
     <string name="add_gallery">日記を追加する</string>
     <string name="create">作成する</string>
+    <string name="description">説明</string>
+    <string name="pick_image">画像を選択</string>
+    <string name="create_gallery">ギャラリーを作成する</string>
+    <string name="title">タイトル</string>
+    <string name="save">保存</string>
 </resources>

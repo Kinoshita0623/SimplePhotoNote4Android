@@ -1,19 +1,19 @@
 package ie2a_2200078.eventwork05.viewmodels
 
 import androidx.lifecycle.*
-import androidx.room.Room
-import androidx.room.RoomDatabase
 import ie2a_2200078.eventwork05.MyApp
 import ie2a_2200078.eventwork05.dao.GalleryFileDAO
 import ie2a_2200078.eventwork05.dao.GalleryNoteDAO
+import ie2a_2200078.eventwork05.entities.GalleryFile
 import ie2a_2200078.eventwork05.entities.GalleryNote
+import ie2a_2200078.eventwork05.view.FileListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class GalleryPostEditorViewModel(
     val galleryNoteDAO: GalleryNoteDAO,
     val galleryFileDAO: GalleryFileDAO
-) : ViewModel(){
+) : ViewModel() {
 
     @Suppress("UNCHECKED_CAST")
     class Factory(
@@ -24,11 +24,13 @@ class GalleryPostEditorViewModel(
         }
     }
 
-    val name = MutableLiveData<String>()
+    val title = MutableLiveData<String>()
 
 
     val description = MutableLiveData<String>()
 
+    private val _pickedImages = MutableLiveData<List<GalleryFile>>()
+    val pickedImages: LiveData<List<GalleryFile>> = _pickedImages
 
     private val _saveError = MutableLiveData<Throwable>()
     val saveError: LiveData<Throwable> = _saveError
@@ -37,7 +39,7 @@ class GalleryPostEditorViewModel(
     val isSuccess: LiveData<Boolean> = _isSuccess
 
     fun save() {
-        val n = name.value
+        val n = title.value
         val description = this.description.value
         if(n.isNullOrBlank()) {
             return
@@ -49,7 +51,11 @@ class GalleryPostEditorViewModel(
 
         viewModelScope.launch(Dispatchers.IO) {
             runCatching {
-                galleryNoteDAO.insert(note)
+                val noteId = galleryNoteDAO.insert(note)
+                val files = pickedImages.value?: emptyList()
+                galleryFileDAO.insertAll(files.map {
+                    it.copy(galleryNoteId = noteId)
+                })
             }.onSuccess {
                 _isSuccess.postValue(true)
             }.onFailure {
@@ -62,4 +68,11 @@ class GalleryPostEditorViewModel(
 
 
     }
+
+    fun addFile(path: String) {
+        _pickedImages.value = (_pickedImages.value?: listOf()).toMutableList().also {
+            it.add(GalleryFile(path, 0))
+        }
+    }
+
 }
