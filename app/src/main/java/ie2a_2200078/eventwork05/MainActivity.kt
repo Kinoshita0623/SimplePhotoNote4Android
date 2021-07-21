@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import ie2a_2200078.eventwork05.databinding.ActivityMainBinding
 import ie2a_2200078.eventwork05.view.GalleryNoteWithFileListAdapter
 import ie2a_2200078.eventwork05.viewmodels.GalleryPostsViewModel
+import ie2a_2200078.eventwork05.viewmodels.Mode
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -20,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
 
-        val viewModel = ViewModelProvider(this, GalleryPostsViewModel.Factory(application as MyApp))[GalleryPostsViewModel::class.java]
+        val viewModel = ViewModelProvider(this, GalleryPostsViewModel.Factory(application as MyApp, Mode.ALL))[GalleryPostsViewModel::class.java]
 
         val adapter = GalleryNoteWithFileListAdapter(
             {
