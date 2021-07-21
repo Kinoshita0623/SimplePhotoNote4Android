@@ -7,4 +7,5 @@
     <string name="create_gallery">ギャラリーを作成する</string>
     <string name="title">タイトル</string>
     <string name="save">保存</string>
+    <string name="take_picture">写真を撮影</string>
 </resources>
