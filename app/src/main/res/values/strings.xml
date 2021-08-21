@@ -8,4 +8,7 @@
     <string name="title">タイトル</string>
     <string name="save">保存</string>
     <string name="take_picture">写真を撮影</string>
+    <string name="all">全て</string>
+    <string name="favorite">お気に入り</string>
+    <string name="shared">共有</string>
 </resources>
