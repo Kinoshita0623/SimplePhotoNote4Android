@@ -4,7 +4,7 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 @Entity({
     name: 'files'
 })
-export class File {
+export class FileProperty {
     @PrimaryGeneratedColumn()
     id: number;
 

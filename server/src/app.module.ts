@@ -12,13 +12,16 @@ import { FileModule } from './file/file.module';
   imports: [AuthModule, 
     AccountModule, 
     TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database: 'db/sqlitedb.db',
+      type: 'mysql' as 'mysql',
+      port: 3306,
+      username: 'miuser',
+      password: 'password',
+      database: 'mi-db',
       synchronize: true,
       entities: ['src/**/*.entity.ts']
     }), PostModule, FileModule
   ],
   controllers: [AppController],
-  providers: [AppService, AccountService],
+  providers: [AppService],
 })
 export class AppModule {}

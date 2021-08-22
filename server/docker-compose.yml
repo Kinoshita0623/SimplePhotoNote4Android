@@ -1,0 +1,25 @@
+version: "3.7"
+services:
+  api:
+    build: .
+    tty: true
+    restart: always
+    ports:
+      - "3001:3001"
+    volumes:
+      - type: bind
+        source: .
+        target: /api-server
+    depends_on: 
+      - db
+  db:
+    image: mariadb:10.6.2
+    container_name: mi-db
+    ports:
+      - 3360:3306
+    environment:
+      MYSQL_DATABASE: mi-db
+      MYSQL_USER: miuser
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: rootpassword
+      TZ: Asia/Tokyo

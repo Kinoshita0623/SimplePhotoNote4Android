@@ -1,4 +1,4 @@
-import { File } from "src/file/file.entity";
+import { FileProperty } from "src/file/file.entity";
 import { Post } from "src/post/post.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
@@ -20,7 +20,7 @@ export class Account {
     @OneToMany(type => Post, post => post.account)
     posts: Post[]
 
-    @OneToMany(type => File, file => file.account)
-    files: File[]
+    @OneToMany(type => FileProperty, file => file.account)
+    files: FileProperty[]
 
 }
