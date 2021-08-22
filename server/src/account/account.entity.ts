@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { File } from "src/file/file.entity";
+import { Post } from "src/post/post.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({
     name: 'accounts'
@@ -14,5 +16,11 @@ export class Account {
 
     @Column()
     encryptedPassword: string;
-    
+
+    @OneToMany(type => Post, post => post.account)
+    posts: Post[]
+
+    @OneToMany(type => File, file => file.account)
+    files: File[]
+
 }
