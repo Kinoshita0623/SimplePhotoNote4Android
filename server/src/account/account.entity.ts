@@ -1,5 +1,5 @@
 import { FileProperty } from "src/file/file.entity";
-import { Post } from "src/post/post.entity";
+import { Note } from "src/note/note.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import bcrypt from 'bcrypt';
 
@@ -18,8 +18,8 @@ export class Account {
     @Column()
     encryptedPassword: string;
 
-    @OneToMany(type => Post, post => post.account)
-    posts: Post[]
+    @OneToMany(type => Note, post => post.account)
+    notes: Note[]
 
     @OneToMany(type => FileProperty, file => file.account)
     files: FileProperty[]

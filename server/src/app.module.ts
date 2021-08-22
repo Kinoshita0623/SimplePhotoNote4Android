@@ -5,10 +5,10 @@ import { AuthModule } from './auth/auth.module';
 import { AccountService } from './account/account.service';
 import { AccountModule } from './account/account.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { PostModule } from './post/post.module';
+import { NoteModule } from './note/note.module';
 import { FileModule } from './file/file.module';
 import { Account } from './account/account.entity';
-import { Post } from './post/post.entity';
+import { Note } from './note/note.entity';
 import { FileProperty } from './file/file.entity';
 
 @Module({
@@ -21,9 +21,9 @@ import { FileProperty } from './file/file.entity';
       password: 'password',
       database: 'mi-db',
       synchronize: true,
-      entities: [Account, Post, FileProperty],
+      entities: [Account, Note, FileProperty],
       host: 'mi-db'
-    }), PostModule, FileModule
+    }), NoteModule, FileModule
   ],
   controllers: [AppController],
   providers: [AppService],

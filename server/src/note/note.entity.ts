@@ -5,7 +5,7 @@ import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColum
 @Entity({
     name: 'posts'
 })
-export class Post {
+export class Note {
 
     @PrimaryGeneratedColumn()
     id: number;
@@ -19,7 +19,7 @@ export class Post {
     @Column()
     accountId: number;
 
-    @ManyToOne(type => Account, account => account.posts)
+    @ManyToOne(type => Account, account => account.notes)
     account: Account;
 
     @ManyToMany(type => FileProperty)
