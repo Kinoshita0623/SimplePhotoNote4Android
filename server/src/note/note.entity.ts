@@ -3,7 +3,7 @@ import { FileProperty } from "src/file/file.entity";
 import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({
-    name: 'posts'
+    name: 'notes'
 })
 export class Note {
 
@@ -24,9 +24,9 @@ export class Note {
 
     @ManyToMany(type => FileProperty)
     @JoinTable({
-        name: 'post_files',
+        name: 'note_files',
         joinColumn: {
-            name: 'post_id',
+            name: 'note_id',
             referencedColumnName: 'id'
         },
         inverseJoinColumn: {

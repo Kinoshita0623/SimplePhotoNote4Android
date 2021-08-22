@@ -23,7 +23,8 @@ import { FileProperty } from './file/file.entity';
       synchronize: true,
       entities: [Account, Note, FileProperty],
       host: 'mi-db'
-    }), NoteModule, FileModule
+    }), NoteModule, FileModule,
+    TypeOrmModule.forFeature([Account, FileProperty, Note])
   ],
   controllers: [AppController],
   providers: [AppService],

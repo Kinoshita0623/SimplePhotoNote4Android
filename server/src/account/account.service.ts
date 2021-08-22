@@ -20,14 +20,18 @@ export class AccountService {
         return this.accountRepository.findOneOrFail(id)
     }
 
-    findByUserName(username: string): Promise<Account| null> {
-        return this.accountRepository.findOne({username: username})
+    findByUserName(username: string): Promise<Account> {
+        return this.accountRepository.findOneOrFail({username: username})
     }
 
     register(dto: RegisterAccountDTO) : Promise<Account>{
         const account = new Account(dto.username);
         account.applyPassword(dto.password);
+        account.generateToken();
         return this.accountRepository.save(account);
     }
     
+    findByToken(token: string): Promise<Account|null> {
+        return this.accountRepository.findOne({token: token});
+    }
 }
