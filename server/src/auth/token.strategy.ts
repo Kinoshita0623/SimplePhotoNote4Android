@@ -8,8 +8,7 @@ export class TokenStrategy extends PassportStrategy(Strategy, 'token') {
 
     async validate(token: string) : Promise<Account>{
         if(token == 'piyopiyo') {
-            const ac = new Account();
-            ac.username = 'hoge';
+            const ac = new Account('hoge');
             return ac;
         }
         throw new UnauthorizedException();

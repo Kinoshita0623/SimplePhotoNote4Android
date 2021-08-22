@@ -11,7 +11,7 @@ export class LocalStrategy extends PassportStrategy(Strategy, 'local') {
 
     async validate(username: string, password: string): Promise<Account> {
         if(username == 'hoge' && password == 'piyo') {
-            const ac = new Account();
+            const ac = new Account('hoge');
             ac.username = username;
             return ac;
         }

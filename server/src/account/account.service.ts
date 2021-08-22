@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { RegisterAccountDTO } from './account.dto';
 import { Account } from './account.entity';
 
 export interface RegsiterAccount {
@@ -23,5 +24,10 @@ export class AccountService {
         return this.accountRepository.findOne({username: username})
     }
 
+    register(dto: RegisterAccountDTO) : Promise<Account>{
+        const account = new Account(dto.username);
+        account.applyPassword(dto.password);
+        return this.accountRepository.save(account);
+    }
     
 }

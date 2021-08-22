@@ -7,6 +7,9 @@ import { AccountModule } from './account/account.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostModule } from './post/post.module';
 import { FileModule } from './file/file.module';
+import { Account } from './account/account.entity';
+import { Post } from './post/post.entity';
+import { FileProperty } from './file/file.entity';
 
 @Module({
   imports: [AuthModule, 
@@ -18,7 +21,8 @@ import { FileModule } from './file/file.module';
       password: 'password',
       database: 'mi-db',
       synchronize: true,
-      entities: ['src/**/*.entity.ts']
+      entities: [Account, Post, FileProperty],
+      host: 'mi-db'
     }), PostModule, FileModule
   ],
   controllers: [AppController],

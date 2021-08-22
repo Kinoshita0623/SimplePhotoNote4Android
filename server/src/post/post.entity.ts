@@ -1,5 +1,6 @@
 import { Account } from "src/account/account.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { FileProperty } from "src/file/file.entity";
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({
     name: 'posts'
@@ -20,4 +21,18 @@ export class Post {
 
     @ManyToOne(type => Account, account => account.posts)
     account: Account;
+
+    @ManyToMany(type => FileProperty)
+    @JoinTable({
+        name: 'post_files',
+        joinColumn: {
+            name: 'post_id',
+            referencedColumnName: 'id'
+        },
+        inverseJoinColumn: {
+            name: 'file_id',
+            referencedColumnName: 'id'
+        }
+    })
+    files: FileProperty[]
 }
