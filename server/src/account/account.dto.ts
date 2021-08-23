@@ -1,8 +1,8 @@
-import { IsAlpha, IsNotEmpty } from 'class-validator';
+import { IsAlpha, IsAlphanumeric, IsNotEmpty } from 'class-validator';
 
 export class RegisterAccountDTO {
     @IsNotEmpty()
-    @IsAlpha()
+    @IsAlphanumeric()
     username: string;
 
     @IsNotEmpty()
