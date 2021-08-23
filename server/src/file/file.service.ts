@@ -14,7 +14,7 @@ export class FileService {
     }
 
     async create(account: Account, file: Express.Multer.File) : Promise<FileProperty> {
-        const fp = new FileProperty(file.mimetype, file.filename, file.originalname, account.id)
+        const fp = new FileProperty(file.mimetype, `${file.filename}-${file.originalname}`, file.originalname, file.filename,account.id)
         return await this.fileRepository.save(fp)
     }
 

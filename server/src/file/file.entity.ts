@@ -1,3 +1,4 @@
+import { Exclude } from "class-transformer";
 import { Account } from "src/account/account.entity";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
@@ -11,11 +12,15 @@ export class FileProperty {
     @Column()
     type: string;
 
-    @Column()
+    @Column({unique: true})
     name: string;
 
     @Column()
     originalname: string;
+
+    @Column()
+    @Exclude()
+    rawName: string;
 
     @Column()
     accountId: number;
@@ -23,10 +28,11 @@ export class FileProperty {
     @ManyToOne(type => Account, account => account.files)
     account: Account;
 
-    constructor(type: string, name: string, orignalname: string, accountId: number) {
+    constructor(type: string, name: string, orignalname: string, rawName: string, accountId: number) {
         this.type = type;
         this.name = name;
-        this.originalname = this.originalname;
+        this.originalname = orignalname;
         this.accountId = accountId;
+        this.rawName = rawName;
     }
 }

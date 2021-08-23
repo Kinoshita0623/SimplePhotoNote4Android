@@ -10,6 +10,7 @@ import { FileModule } from './file/file.module';
 import { Account } from './account/account.entity';
 import { Note } from './note/note.entity';
 import { FileProperty } from './file/file.entity';
+import { FavoriteService } from './favorite/favorite.service';
 
 @Module({
   imports: [AuthModule, 
@@ -27,6 +28,6 @@ import { FileProperty } from './file/file.entity';
     TypeOrmModule.forFeature([Account, FileProperty, Note])
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, FavoriteService],
 })
 export class AppModule {}

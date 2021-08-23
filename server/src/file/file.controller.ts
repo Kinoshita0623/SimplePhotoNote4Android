@@ -20,7 +20,7 @@ export class FileController {
     @Get(':name')
     async find(@Param('name') name: string) : Promise<StreamableFile>{
         const fileProperty = await this.fileService.findByName(name);
-        const file = createReadStream('./files/' + fileProperty.name);
+        const file = createReadStream('./files/' + fileProperty.rawName);
         return new StreamableFile(file);
     }
 

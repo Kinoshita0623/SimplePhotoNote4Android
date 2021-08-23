@@ -22,6 +22,8 @@ export class Note {
     @ManyToOne(type => Account, account => account.notes)
     account: Account;
 
+    isPrivate: boolean = false;
+
     @ManyToMany(type => FileProperty)
     @JoinTable({
         name: 'note_files',
