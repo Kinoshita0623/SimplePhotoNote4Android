@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main">
+    android:id="@+id/main"
+    app:startDestination="@id/nav_all">
 
+    <fragment
+        android:id="@+id/nav_all"
+        android:name="ie2a_2200078.eventwork05.fragments.GalleryNotesFragment"
+        android:label="GalleryNotesFragment" />
+    <fragment
+        android:id="@+id/nav_shared"
+        android:label="FavoriteGalleryNoteFragment"
+        android:name="ie2a_2200078.eventwork05.fragments.OnlineGalleryNotesFragment"
+        />
+    <fragment
+        android:id="@+id/nav_favorite"
+        android:name="ie2a_2200078.eventwork05.fragments.FavoriteGalleryNoteFragment"
+        android:label="OnlineGalleryNotesFragment" />
 </navigation>

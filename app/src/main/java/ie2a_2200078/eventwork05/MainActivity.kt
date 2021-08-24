@@ -8,6 +8,8 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.navigation.NavigationBarMenuView
 import ie2a_2200078.eventwork05.databinding.ActivityMainBinding
@@ -25,26 +27,11 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
 
-        val viewModel = ViewModelProvider(this, GalleryPostsViewModel.Factory(application as MyApp, Mode.ALL))[GalleryPostsViewModel::class.java]
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentBase) as NavHostFragment
 
-        val adapter = GalleryNoteWithFileListAdapter(
-            {
-                viewModel.toggleFavorite(it.galleryNote.id)
-            },
-            this,
-                viewModel,
-        )
-
-        binding.galleryPostsListView.adapter = adapter
-        binding.galleryPostsListView.layoutManager = LinearLayoutManager(this)
-        viewModel.galleryNotes.onEach {
-            adapter.submitList(it)
-        }.launchIn(lifecycleScope)
-
+        binding.bottomNavigation.setupWithNavController(navHostFragment.navController)
         binding.createFab.setOnClickListener {
-            startActivity(Intent(this@MainActivity, GalleryNoteEditorActivity::class.java))
+            startActivity(Intent(this, GalleryNoteEditorActivity::class.java))
         }
-
-
     }
 }
