@@ -11,7 +11,10 @@ export class Note {
     id: number;
 
     @Column()
-    text: string;
+    title: string;
+
+    @Column({nullable: true})
+    description?: string;
 
     @Column()
     author: number;
