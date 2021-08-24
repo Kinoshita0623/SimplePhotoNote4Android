@@ -11,4 +11,5 @@
     <string name="all">全て</string>
     <string name="favorite">お気に入り</string>
     <string name="shared">共有</string>
+    <string name="share_world">全世界に公開</string>
 </resources>
