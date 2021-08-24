@@ -16,7 +16,8 @@ export class NoteService {
 
     async create(account: Account, dto: CreateNoteDTO): Promise<Note> {
         const note = new Note();
-        note.text = dto.text;
+        note.title = dto.title;
+        note.description = dto.description;
         note.accountId = account.id;
         const files = await this.fileRepository.findByIds(dto.fileIds);
         note.files = files;

@@ -2,7 +2,9 @@ import { IsNotEmpty } from "class-validator";
 
 export class CreateNoteDTO {
     @IsNotEmpty()
-    text: string;
+    title: string;
+
+    description?: string;
 
     @IsNotEmpty()
     fileIds: number[]
