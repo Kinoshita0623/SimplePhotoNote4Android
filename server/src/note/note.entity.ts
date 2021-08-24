@@ -22,7 +22,15 @@ export class Note {
     @ManyToOne(type => Account, account => account.notes)
     account: Account;
 
+    @Column({
+        default: false
+    })
     isPrivate: boolean = false;
+
+    @Column({
+        default: 0
+    })
+    favoriteCount: number = 0;
 
     @ManyToMany(type => FileProperty)
     @JoinTable({

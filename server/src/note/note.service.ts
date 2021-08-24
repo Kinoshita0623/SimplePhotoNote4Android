@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Account } from 'src/account/account.entity';
 import { FileProperty } from 'src/file/file.entity';
@@ -46,4 +46,26 @@ export class NoteService {
         });
     }
 
+    async find(account: Account, noteId: number): Promise<Note> {
+        const note = await this.noteRepository.findOneOrFail({
+            id: noteId
+        });
+
+        if(!note.isPrivate) {
+            return note;
+        }
+        if(account.id == note.accountId) {
+            return note;
+        }
+
+        throw new NotFoundException();
+    }
+
+    async delete(account: Account, noteId: number){
+        const note = await this.find(account, noteId);
+        if(note.accountId == account.id) {
+            throw new UnauthorizedException();
+        }
+        this.noteRepository.delete({id: note.id});
+    }
 }
