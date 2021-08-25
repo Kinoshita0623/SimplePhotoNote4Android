@@ -29,8 +29,8 @@ data class AuthResponseBody(
 @Serializable
 data class CreateNoteBody(
     val title: String,
-    val description: String,
-    val fileIds: List<Int>
+    val description: String?,
+    val fileIds: List<Long>
 )
 
 @Serializable
@@ -73,7 +73,7 @@ interface GalleryNoteAPIClient {
     suspend fun me() : Response<Account>
 
     @POST("api/notes")
-    suspend fun createNote(@Body createNote: CreateNoteBody)
+    suspend fun createNote(@Body createNote: CreateNoteBody) : Response<Note>
 
     @GET("api/notes/{id}")
     suspend fun findNote(@Path("id") id: Int) : Response<Note>
