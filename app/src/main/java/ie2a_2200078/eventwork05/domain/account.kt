@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 data class Account(
     val id: Long,
     val userName: String,
-    val avatarIcon: FileProperty
+    val avatarIcon: FileProperty?
 )
 
 
